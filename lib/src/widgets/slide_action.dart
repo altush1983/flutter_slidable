@@ -118,6 +118,7 @@ class IconSlideAction extends ClosableSlideAction {
     this.icon,
     this.iconWidget,
     this.caption,
+    this.captionOverflow = TextOverflow.ellipsis,
     Color? color,
     this.foregroundColor,
     VoidCallback? onTap,
@@ -141,6 +142,9 @@ class IconSlideAction extends ClosableSlideAction {
 
   /// The caption below the icon.
   final String? caption;
+
+  /// How visual overflow should be handled.
+  final TextOverflow captionOverflow;
 
   /// The color used for [icon] and [caption].
   final Color? foregroundColor;
@@ -176,7 +180,7 @@ class IconSlideAction extends ClosableSlideAction {
         Flexible(
           child: Text(
             caption!,
-            overflow: TextOverflow.ellipsis,
+            overflow: captionOverflow,
             style: Theme.of(context)
                 .primaryTextTheme
                 .caption!
