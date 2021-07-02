@@ -181,6 +181,7 @@ class IconSlideAction extends ClosableSlideAction {
           child: Text(
             caption!,
             overflow: captionOverflow,
+            textAlign: TextAlign.center,
             style: Theme.of(context)
                 .primaryTextTheme
                 .caption!
