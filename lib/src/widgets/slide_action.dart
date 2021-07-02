@@ -21,7 +21,7 @@ abstract class ClosableSlideAction extends StatelessWidget {
   final Color? color;
 
   /// A tap has occurred.
-  final VoidCallback? onTap;
+  final Function(BuildContext)? onTap;
 
   /// Whether close this after tap occurred.
   ///
@@ -31,7 +31,7 @@ abstract class ClosableSlideAction extends StatelessWidget {
   /// Calls [onTap] if not null and closes the closest [Slidable]
   /// that encloses the given context.
   void _handleCloseAfterTap(BuildContext context) {
-    onTap?.call();
+    onTap?.call(context);
     Slidable.of(context)?.close();
   }
 
@@ -41,7 +41,7 @@ abstract class ClosableSlideAction extends StatelessWidget {
       child: Material(
         color: color,
         child: InkWell(
-          onTap: !closeOnTap ? onTap : () => _handleCloseAfterTap(context),
+          onTap: !closeOnTap ? onTap(context) : () => _handleCloseAfterTap(context),
           child: buildAction(context),
         ),
       ),
@@ -68,7 +68,7 @@ class SlideAction extends ClosableSlideAction {
   SlideAction({
     Key? key,
     required this.child,
-    VoidCallback? onTap,
+    Function(BuildContext)? onTap,
     Color? color,
     Decoration? decoration,
     bool closeOnTap = _kCloseOnTap,
@@ -121,7 +121,7 @@ class IconSlideAction extends ClosableSlideAction {
     this.captionOverflow = TextOverflow.ellipsis,
     Color? color,
     this.foregroundColor,
-    VoidCallback? onTap,
+    Function(BuildContext)? onTap,
     bool closeOnTap = _kCloseOnTap,
   })  : assert(icon != null || iconWidget != null,
             'Either set icon or iconWidget.'),
